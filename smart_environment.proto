@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package smart_environment;
+
+// Serviço para o ArCondicionado
+service ArCondicionado {
+  rpc Ligar (Vazio) returns (Vazio) {}
+  rpc Desligar (Vazio) returns (Vazio) {}
+  rpc getStatus (Vazio) returns (StatusArCondicionado) {} // Adicione este método
+}
+
+// Mensagem para representar o status do ArCondicionado
+message StatusArCondicionado {
+  bool ligado = 1;
+}
+
+// Serviço para o SistemaControleIncendio
+service SistemaControleIncendio {
+  rpc Ligar (Vazio) returns (Vazio) {}
+  rpc Desligar (Vazio) returns (Vazio) {}
+}
+
+// Serviço para a Lampada
+service Lampada {
+  rpc Ligar (Vazio) returns (Vazio) {}
+  rpc Desligar (Vazio) returns (Vazio) {}
+}
+
+// Mensagem vazia para ser usada nos métodos acima
+message Vazio {}
