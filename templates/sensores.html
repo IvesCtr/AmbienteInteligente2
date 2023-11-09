@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monitoramento do Ambiente Inteligente</title>
+</head>
+<body>
+    <h3><a href="{{ url_for('index') }}">Início</a></h3>
+
+    <h1>Sensores</h1>
+
+    <h2>Temperatura</h2>
+    <p>Valor: <span id="status-temperatura">Aguardando atualização...</span></p>
+
+    <h2>Fumaça</h2>
+    <p>Detectado: <span id="status-fumaca">Aguardando atualização...</span></p>
+
+    <h2>Luminosidade</h2>
+    <p>Valor: <span id="status-luminosidade">Aguardando atualização...</span></p>
+
+    <script>
+        // Função para fazer a requisição e atualizar o status da temperatura
+        function atualizarStatusTemperatura() {
+            fetch('/api/temperatura')
+                .then(response => response.json())
+                .then(data => {
+                    const statusElement = document.getElementById('status-temperatura');
+                    statusElement.textContent = `${data.temperatura.toFixed(1)} °C`;
+                })
+                .catch(error => console.error('Erro ao obter o status da temperatura:', error));
+        }
+
+        // Função para fazer a requisição e atualizar o status da detecção de fumaça
+        function atualizarStatusFumaca() {
+            fetch('/api/detecao-fumaca')
+                .then(response => response.json())
+                .then(data => {
+                    const statusElement = document.getElementById('status-fumaca');
+                    statusElement.textContent = data.fumaca ? 'Sim' : 'Não';
+                })
+                .catch(error => console.error('Erro ao obter o status da detecção de fumaça:', error));
+        }
+
+        // Função para fazer a requisição e atualizar o status da luminosidade
+        function atualizarStatusLuminosidade() {
+            fetch('/api/luminosidade')
+                .then(response => response.json())
+                .then(data => {
+                    const statusElement = document.getElementById('status-luminosidade');
+                    statusElement.textContent = data.luminosidade;
+                })
+                .catch(error => console.error('Erro ao obter o status da luminosidade:', error));
+        }
+
+        // Atualizar os status periodicamente (por exemplo, a cada 5 segundos)
+        setInterval(() => {
+            atualizarStatusTemperatura();
+            atualizarStatusFumaca();
+            atualizarStatusLuminosidade();
+        }, 5000);
+    </script>
+</body>
+</html>
