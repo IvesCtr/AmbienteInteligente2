@@ -123,11 +123,11 @@ class HomeAssistant:
                 stub = smart_environment_pb2_grpc.LampadaStub(channel)
                 response = stub.Ligar(smart_environment_pb2.Vazio())
                 print("Home Assistant: Lâmpada ligada")
-        #else:
-        #    with grpc.insecure_channel('localhost:50051') as channel:
-        #        stub = smart_environment_pb2_grpc.LampadaStub(channel)
-        #        response = stub.Desligar(smart_environment_pb2.Vazio())
-        #        print("Home Assistant: Lâmpada desligada")
+        else:
+            with grpc.insecure_channel('localhost:50051') as channel:
+                stub = smart_environment_pb2_grpc.LampadaStub(channel)
+                response = stub.Desligar(smart_environment_pb2.Vazio())
+                print("Home Assistant: Lâmpada desligada")
 
     def callback_temperatura(self, ch, method, properties, body):
         temperatura = float(body)
