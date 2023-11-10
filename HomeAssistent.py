@@ -113,6 +113,7 @@ class HomeAssistant:
         self.channel.queue_declare(queue='fila_fumaca')
         self.channel.queue_declare(queue='fila_luminosidade')
 
+
     # Método de callback para luminosidade
     def callback_luminosidade(self, ch, method, properties, body):
         luminosidade = int(body)
@@ -122,11 +123,11 @@ class HomeAssistant:
                 stub = smart_environment_pb2_grpc.LampadaStub(channel)
                 response = stub.Ligar(smart_environment_pb2.Vazio())
                 print("Home Assistant: Lâmpada ligada")
-        else:
-            with grpc.insecure_channel('localhost:50051') as channel:
-                stub = smart_environment_pb2_grpc.LampadaStub(channel)
-                response = stub.Desligar(smart_environment_pb2.Vazio())
-                print("Home Assistant: Lâmpada desligada")
+        #else:
+        #    with grpc.insecure_channel('localhost:50051') as channel:
+        #        stub = smart_environment_pb2_grpc.LampadaStub(channel)
+        #        response = stub.Desligar(smart_environment_pb2.Vazio())
+        #        print("Home Assistant: Lâmpada desligada")
 
     def callback_temperatura(self, ch, method, properties, body):
         temperatura = float(body)
@@ -176,6 +177,7 @@ class HomeAssistant:
                 stub = smart_environment_pb2_grpc.SistemaControleIncendioStub(channel)
                 response = stub.Desligar(smart_environment_pb2.Vazio())
                 print("Home Assistant: Sistema de controle de incêndio desligado")
+
 
     def monitorar_ambiente(self):
         self.channel.basic_consume(queue='fila_temperatura', on_message_callback=self.callback_temperatura, auto_ack=True)
