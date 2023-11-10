@@ -79,7 +79,7 @@ O projeto é dividido em quatro partes principais:
 
 ## Como usar?
 
-Em termos de visualização, basta utilizar a aplicação web `http://localhost:5000` para monitorar informações dos sensores e status dos atuares. Já em termos de uso de código, basta utilizar o `cliente.py`, e seguir o **menu**, que contém todas as informações necessárias de forma clara e intuitiva.
+Em termos de visualização, basta utilizar a aplicação web `http://localhost:5000` para monitorar as informações dos sensores e o status atual dos atuares. Já em termos de uso de código, basta utilizar o `cliente.py`, e seguir o **menu**, que contém todas as informações necessárias de forma clara e intuitiva.
 
 ## Observações Adicionais
 
