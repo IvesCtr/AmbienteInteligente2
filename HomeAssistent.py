@@ -99,7 +99,7 @@ class SistemaControleIncendio(smart_environment_pb2_grpc.SistemaControleIncendio
         return smart_environment_pb2.Vazio()
 
 class HomeAssistant:
-    def __init__(self, host='localhost', client_port=5555):
+    def __init__(self, host='localhost', client_port=6666):
         self.sensor_temperatura = SensorTemperatura(host)
         self.sensor_fumaca = SensorFumaca(host)
         self.sensor_luminosidade = SensorLuminosidade(host)
@@ -142,6 +142,15 @@ class HomeAssistant:
             self.lampada_stub.Ligar(smart_environment_pb2.Vazio())
         elif command == "LAMPADA_OFF":
             self.lampada_stub.Desligar(smart_environment_pb2.Vazio())
+        elif command == "LUMINOSIDADE_READ":
+            luminosidade = self.sensor_luminosidade.ler_luminosidade()
+            self.client_conn.send(str(luminosidade).encode('utf-8'))
+        elif command == "FUMACA_READ":
+            fumaca = self.sensor_fumaca.detectar_fumaca()
+            self.client_conn.send(str(fumaca).encode('utf-8'))
+        elif command == "TEMPERATURA_READ":
+            temperatura = self.sensor_temperatura.ler_temperatura()
+            self.client_conn.send(str(temperatura).encode('utf-8'))
         else:
             print("Comando não reconhecido")
 
