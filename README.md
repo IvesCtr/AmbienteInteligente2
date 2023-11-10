@@ -10,7 +10,7 @@ Este projeto implementa um sistema distribuído de ambiente inteligente, que inc
   - A linguagem principal para a implementação de todos os componentes.
 
 - **Proto3:**
-  - Usado para definição de mensagens gRPC
+  - Usado para definição de mensagens gRPC.
 
 - **gRPC:**
   - Um framework de código aberto desenvolvido pelo Google para facilitar a comunicação remota entre serviços.
