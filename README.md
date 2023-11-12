@@ -2,7 +2,7 @@
 
 ## Descrição Geral:
 
-Este projeto implementa um sistema distribuído de ambiente inteligente, que inclui um servidor gRPC, um cliente Flask (App), um cliente gRPC (HomeAssistant), e um cliente de linha de comando (Client). O sistema é projetado para controlar e monitorar dispositivos como ar-condicionado, sistema de controle de incêndio e lâmpadas com base em sensores de temperatura, fumaça e luminosidade.
+Este projeto implementa um sistema distribuído de ambiente inteligente, que inclui um servidor gRPC, um cliente Flask (App), um cliente gRPC (HomeAssistant), e um cliente de linha de comando (Cliente). O sistema é projetado para controlar e monitorar dispositivos como ar-condicionado, sistema de controle de incêndio e lâmpadas com base em sensores de temperatura, fumaça e luminosidade.
 
 ## Linguagens e Frameworks:
 
@@ -44,7 +44,7 @@ O projeto é dividido em quatro partes principais:
   - Utiliza Flask para o desenvolvimento da interface web.
 
 - **Client:**
-  - O código do cliente (`Client.py`) é um cliente de linha de comando que permite interagir com o sistema.
+  - O código do cliente (`Cliente.py`) é um cliente de linha de comando que permite interagir com o sistema.
   - Utiliza sockets TCP para se comunicar com o HomeAssistant. Sendo assim, o formato da mensagem é String.
 
 ## Mensagens Trocadas:
@@ -56,6 +56,9 @@ O projeto é dividido em quatro partes principais:
 - **RabbitMQ:**
   - Para simular sensores, mensagens são publicadas nas filas 'fila_temperatura', 'fila_fumaca', 'fila_luminosidade' com valores simulados.
   - O HomeAssistant consome essas mensagens para obter dados dos sensores.
+
+- **String:**
+  - O menu do Cliente, presente no `Cliente.py`, se comunica com o HomeAssistant por meio de sockets TCP, sendo as mensagens enviadas no formato de String.
 
 ### Execução do Projeto
 
