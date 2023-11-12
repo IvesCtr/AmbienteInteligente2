@@ -84,7 +84,7 @@ O projeto é dividido em quatro partes principais:
    - Execute o script `app.py` para iniciar o aplicativo web Flask.
 
 6. **Acesso ao Aplicativo Web:**
-   - Acesse o aplicativo web em `http://localhost:5000` para visualizar informações dos sensores e controlar atuadores.
+   - Acesse o aplicativo web em `http://localhost:5000` para visualizar informações dos sensores e dos atuadores.
 
 ## Como usar?
 
