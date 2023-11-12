@@ -86,4 +86,8 @@ Em termos de visualização, basta utilizar a aplicação web `http://localhost:
 - Certifique-se de ter o RabbitMQ instalado e em execução para a comunicação assíncrona entre o HomeAssistant e os sensores.
 - Adapte as configurações de host e porta conforme necessário nos scripts para garantir a comunicação correta entre os serviços.
 
+<br>
+<div align = "center">
+<img src="https://github.com/IvesCtr/AmbienteInteligente2/assets/120431088/5a52c6da-fa1d-41a9-9e0b-bf36befdf4ae" width="700px"/>
+</div>
 
