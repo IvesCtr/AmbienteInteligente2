@@ -18,7 +18,7 @@ message StatusArCondicionado {
 service SistemaControleIncendio {
   rpc Ligar (Vazio) returns (Vazio) {}
   rpc Desligar (Vazio) returns (Vazio) {}
-  rpc getStatus (Vazio) returns (StatusSistemaControleIncendio) {} // Adicione este método
+  rpc getStatus (Vazio) returns (StatusSistemaControleIncendio) {}
 }
 
 // Mensagem para representar o status do SistemaControleIncendio
@@ -30,7 +30,7 @@ message StatusSistemaControleIncendio {
 service Lampada {
   rpc Ligar (Vazio) returns (Vazio) {}
   rpc Desligar (Vazio) returns (Vazio) {}
-  rpc getStatus (Vazio) returns (StatusLampada) {} // Adicione este método
+  rpc getStatus (Vazio) returns (StatusLampada) {}
 }
 
 // Mensagem para representar o status da Lâmpada
