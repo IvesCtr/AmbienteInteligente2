@@ -30,13 +30,12 @@ class SensorFumaca:
         self.channel.queue_declare(queue='fila_fumaca')
 
     def detectar_fumaca(self):
-        self.fumaca = random.choice([True, False])
+        self.fumaca = random.choice([0, 1])
         return self.fumaca
 
     def publicar_fumaca(self):
         while True:
             fumaca = self.detectar_fumaca()
-            print(f"Sensor de Fumaça: Enviando detecção de fumaça como {fumaca}")
             self.channel.basic_publish(exchange='', routing_key='fila_fumaca', body=str(fumaca))
             time.sleep(5)
 

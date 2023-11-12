@@ -117,9 +117,9 @@ class HomeAssistant:
                     print("Home Assistant: Ar-condicionado desligado")
 
     def callback_fumaca(self, ch, method, properties, body):
-        fumaca = body.decode('utf-8') != "False"
+        fumaca = int(body)
         print(f"Home Assistant: Recebida detecção de fumaça como {fumaca}")
-        if fumaca and self.status_incendio is not True:
+        if fumaca == 1 and self.status_incendio is not True:
             self.status_incendio = True
             self.controle_incendio_stub.Ligar(smart_environment_pb2.Vazio())
             print("Home Assistant: Sistema de controle de incêndio ligado")
