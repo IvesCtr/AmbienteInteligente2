@@ -54,10 +54,10 @@ O projeto é dividido em quatro partes principais:
   - As mensagens incluem comandos para ligar/desligar atuadores e obter o status dos mesmos.
 
 - **RabbitMQ:**
-  - Para simular sensores, mensagens são publicadas nas filas 'fila_temperatura', 'fila_fumaca', 'fila_luminosidade' com valores simulados.
+  - Para simular sensores, mensagens no formato String são publicadas nas filas 'fila_temperatura', 'fila_fumaca', 'fila_luminosidade' com valores simulados.
   - O HomeAssistant consome essas mensagens para obter dados dos sensores.
 
-- **String:**
+- **Sockets:**
   - O menu do Cliente, presente no `Cliente.py`, se comunica com o HomeAssistant por meio de sockets TCP, sendo as mensagens enviadas no formato de String.
 
 ### Execução do Projeto
