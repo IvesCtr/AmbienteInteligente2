@@ -81,6 +81,17 @@ O projeto é dividido em quatro partes principais:
 
 Em termos de visualização, basta utilizar a aplicação web `http://localhost:5000` para monitorar as informações dos sensores e o status atual dos atuares. Já em termos de uso de código, é necessário utilizar somente a interface do `cliente.py`, por meio do **menu**, que contém todas as informações necessárias de forma clara e intuitiva.
 
+## Como os atuadores agem conforme recebem sinais dos sensores?
+ 1. **Ar-condicionado:**
+    - O ar-condicionado irá agir comparando a temperatura recebida do sensor de temperatura com uma temperatura desejada já pré-estabelecida — no código, esse valor está em 20ºC. Caso o ar-condicionado já esteja ligado, o atuador confere se a temperatura desejada é menor ou igual à temperatura enviada pelo sensor. Se for, ele será desligado; senão, ele permanece ligado. Por outro lado, se o ar-condicionado estiver desligado, ele será ligado se o sensor enviar uma temperatura maior ou igual a 28ºC.
+    - O ar-condicionado começa, por padrão, DESLIGADO quando o código é executado.
+ 2. **Sistema de Controle de Incêndio:**
+    - O SCI será ligado sempre que o sensor de fumaça enviar o sinal de presença de fumaça. Caso o sensor detecte que não há mais fumaça no ambiente, ele envia essa informação ao SCI, que, por sua vez, será desligado.
+    - O SCI começa, por padrão, DESLIGADO quando o código é executado.
+ 3. **Lâmpada:**
+    - A lâmpada será ligada se o sensor de luminosidade enviar um sinal menor ou igual a 30. Se o sinal enviado pelo sensor superar o valor de 30, a lâmpada é desligada. Vale dizer que o sinal enviado pelo sensor de luminosidade varia de 0 a 100.
+    - A lâmpada começa, por padrão, DESLIGADA quando o código é executado.
+
 ## Observações Adicionais
 
 - Certifique-se de ter o RabbitMQ instalado e em execução para a comunicação assíncrona entre o HomeAssistant e os sensores.
