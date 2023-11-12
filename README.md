@@ -44,7 +44,7 @@ O projeto é dividido em quatro partes principais:
 
 - **App (Flask Web App):**
   - O código do aplicativo (`app.py`) é um aplicativo web construído com Flask para interação com o sistema.
-  - Fornece endpoints REST para obter informações dos sensores e controlar os atuadores.
+  - Fornece endpoints REST para obter informações dos sensores e dos atuadores.
   - Utiliza grpc para se comunicar com o HomeAssistant.
   - Utiliza Flask para o desenvolvimento da interface web.
 
