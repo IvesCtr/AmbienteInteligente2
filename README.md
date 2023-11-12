@@ -79,7 +79,8 @@ O projeto é dividido em quatro partes principais:
 
 ## Como usar?
 
-Em termos de visualização, basta utilizar a aplicação web `http://localhost:5000` para monitorar as informações dos sensores e o status atual dos atuares. Já em termos de uso de código, é necessário utilizar somente a interface do `cliente.py`, por meio do **menu**, que contém todas as informações necessárias de forma clara e intuitiva.
+   - Em termos de visualização, basta utilizar a aplicação web `http://localhost:5000` para monitorar as informações dos sensores e o status atual dos atuares. Já em termos de uso de código, é necessário utilizar somente a interface do `cliente.py`, por meio do **menu**, que contém todas as informações necessárias de forma clara e intuitiva.
+   - É necessário, porém, destacar a opção "Manual/Automático" presente no menu do ar-condicionado e da lâmpada. Essa opção, quando selecionada, irá mostrar se o Controle está no MANUAL ou no AUTOMÁTICO. Quando estiver no MANUAL, significa que os atuadores não irão alterar suas configurações com base nos sinais dos sensores, e sim somente com base nos comandos do usuário, passados pelas outras opções no menu. Já quando estiver no AUTOMÁTICO, os atuadores mudarão automaticamente as suas configurações de acordo com os sinais dos sensores. Por padrão, essa opção vem no "Controle Automático".
 
 ## Como os atuadores agem conforme recebem sinais dos sensores?
  1. **Ar-condicionado:**
