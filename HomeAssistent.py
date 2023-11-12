@@ -11,14 +11,13 @@ import socket
 
 class SensorTemperatura:
     def __init__(self, host='localhost'):
-        self.temperatura = 25
+        self.temperatura = 27
         self.connection = pika.BlockingConnection(pika.ConnectionParameters(host))
         self.channel = self.connection.channel()
         self.channel.queue_declare(queue='fila_temperatura')
 
     def ler_temperatura(self):
         self.temperatura = random.uniform(10, 30)
-        time.sleep(5)
         return self.temperatura
 
     def publicar_temperatura(self):
@@ -37,7 +36,6 @@ class SensorFumaca:
 
     def detectar_fumaca(self):
         self.fumaca = random.choice([True, False])
-        time.sleep(5)
         return self.fumaca
 
     def publicar_fumaca(self):
@@ -57,7 +55,6 @@ class SensorLuminosidade:
 
     def ler_luminosidade(self):
         self.luminosidade = random.randint(0, 100)
-        time.sleep(5)
         return self.luminosidade
 
     def publicar_luminosidade(self):
@@ -129,9 +126,9 @@ class HomeAssistant:
         self.sensor_controla_LAMPADA = True
 
     def accept_client_connection(self):
-        print("Aguardando conexão do Client...")
+        print("Aguardando conexão do cliente...")
         self.client_conn, _ = self.client_socket.accept()
-        print("Client conectado!")
+        print("Um cliente foi conectado!")
 
     def receive_client_command(self):
         while True:
@@ -175,7 +172,7 @@ class HomeAssistant:
         print(f"Home Assistant: Recebida luminosidade {luminosidade}")
 
         if self.sensor_controla_LAMPADA:
-            if luminosidade < 30 and self.status_lampada is not True:
+            if luminosidade <= 30 and self.status_lampada is not True:
                 self.status_lampada = True
                 self.lampada_stub.Ligar(smart_environment_pb2.Vazio())
                 print("Home Assistant: Lâmpada ligada")
@@ -186,7 +183,7 @@ class HomeAssistant:
 
     def callback_temperatura(self, ch, method, properties, body):
         temperatura = float(body)
-        print(f"Home Assistant: Recebida temperatura {temperatura: .1f}")
+        print(f"Home Assistant: Recebida temperatura {temperatura: .1f} ªC")
 
         if self.sensor_controla_AR:
             status_ar_condicionado = self.ar_condicionado_stub.getStatus(smart_environment_pb2.Vazio())
@@ -202,11 +199,11 @@ class HomeAssistant:
                     self.ar_condicionado_stub.Ligar(smart_environment_pb2.Vazio())
                     print("Home Assistant: Ar-condicionado ligado")
             else:
-                if temperatura > 28 and self.status_ar is not True:
+                if temperatura >= 28.0 and self.status_ar is not True:
                     self.status_ar = True
                     self.ar_condicionado_stub.Ligar(smart_environment_pb2.Vazio())
                     print("Home Assistant: Ar-condicionado ligado")
-                elif temperatura < 23 and self.status_ar is not False:
+                elif temperatura < 20.0 and self.status_ar is not False:
                     self.status_ar = False
                     self.ar_condicionado_stub.Desligar(smart_environment_pb2.Vazio())
                     print("Home Assistant: Ar-condicionado desligado")
