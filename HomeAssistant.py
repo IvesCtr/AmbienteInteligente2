@@ -91,7 +91,7 @@ class HomeAssistant:
 
     def callback_temperatura(self, ch, method, properties, body):
         temperatura = float(body)
-        print(f"Home Assistant: Recebida temperatura {temperatura: .1f} ªC")
+        print(f"Home Assistant: Recebida temperatura {temperatura:.1f} ªC")
 
         if self.sensor_controla_AR:
             status_ar_condicionado = self.ar_condicionado_stub.getStatus(smart_environment_pb2.Vazio())
@@ -118,7 +118,11 @@ class HomeAssistant:
 
     def callback_fumaca(self, ch, method, properties, body):
         fumaca = int(body)
-        print(f"Home Assistant: Recebida detecção de fumaça como {fumaca}")
+        if fumaca == 1:
+            info = "VERDADEIRO"
+        else:
+            info = "FALSO"
+        print(f"Home Assistant: Recebida detecção de fumaça como {info}")
         if fumaca == 1 and self.status_incendio is not True:
             self.status_incendio = True
             self.controle_incendio_stub.Ligar(smart_environment_pb2.Vazio())
