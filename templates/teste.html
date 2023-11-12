@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monitoramento do Ambiente Inteligente</title>
+</head>
+<body>
+    <h3><a href="{{ url_for('index') }}">Início</a></h3>
+
+    <h1>Atuadores</h1>
+
+    <h2>Ar Condicionado</h2>
+    <p>Status: <span id="status-ar-condicionado">Aguardando atualização...</span></p>
+    <button onclick="toggleArCondicionado()">Desligar Ar Condicionado</button>
+
+    <h2>Sistema de Controle de Incêndio</h2>
+    <p>Status: <span id="status-sistema-incendio">Aguardando atualização...</span></p>
+    <button onclick="toggleSistemaIncendio()">Desligar Sistema de Controle de Incêndio</button>
+
+    <h2>Lâmpada</h2>
+    <p>Status: <span id="status-lampada">Aguardando atualização...</span></p>
+    <button onclick="toggleLampada()">Desligar Lâmpada</button>
+
+    <form id="controle-usuario-form">
+        <label for="controle-usuario">Controle de Usuário:</label>
+        <input type="checkbox" id="controle-usuario" name="controle_usuario" checked>
+        <button type="button" onclick="alterarControleUsuario()">Atualizar</button>
+    </form>
+
+    <script>
+        function alterarControleUsuario() {
+            const controleUsuarioCheckbox = document.getElementById('controle-usuario');
+            const controleUsuario = controleUsuarioCheckbox.checked;
+
+            fetch('/api/controle-usuario', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ controle_usuario: controleUsuario }),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Controle de Usuário atualizado:', data.controle_usuario);
+                })
+                .catch(error => console.error('Erro ao atualizar o Controle de Usuário:', error));
+        }
+    </script>
+
+    <script>
+        function atualizarStatusArCondicionado() {
+            fetch('/api/status-ar-condicionado')
+                .then(response => response.json())
+                .then(data => {
+                    const statusElement = document.getElementById('status-ar-condicionado');
+                    statusElement.textContent = data.ligado ? 'Ligado' : 'Desligado';
+                })
+                .catch(error => console.error('Erro ao obter o status do ar condicionado:', error));
+        }
+
+        function toggleArCondicionado() {
+            fetch('/api/toggle-ar-condicionado', { method: 'POST' })
+                .then(() => atualizarStatusArCondicionado())
+                .catch(error => console.error('Erro ao toggle do ar condicionado:', error));
+        }
+
+        function atualizarStatusSistemaIncendio() {
+            fetch('/api/status-sistema-incendio')
+                .then(response => response.json())
+                .then(data => {
+                    const statusElement = document.getElementById('status-sistema-incendio');
+                    statusElement.textContent = data.ligado ? 'Ligado' : 'Desligado';
+                })
+                .catch(error => console.error('Erro ao obter o status do sistema de controle de incêndio:', error));
+        }
+
+        function toggleSistemaIncendio() {
+            fetch('/api/toggle-sistema-incendio', { method: 'POST' })
+                .then(() => atualizarStatusSistemaIncendio())
+                .catch(error => console.error('Erro ao toggle do sistema de controle de incêndio:', error));
+        }
+
+        function atualizarStatusLampada() {
+            fetch('/api/status-lampada')
+                .then(response => response.json())
+                .then(data => {
+                    const statusElement = document.getElementById('status-lampada');
+                    statusElement.textContent = data.ligada ? 'Ligado' : 'Desligado';
+                })
+                .catch(error => console.error('Erro ao obter o status da lâmpada:', error));
+        }
+
+        function toggleLampada() {
+            fetch('/api/toggle-lampada', { method: 'POST' })
+                .then(() => atualizarStatusLampada())
+                .catch(error => console.error('Erro ao toggle da lâmpada:', error));
+        }
+
+        setInterval(() => {
+            atualizarStatusArCondicionado();
+            atualizarStatusSistemaIncendio();
+            atualizarStatusLampada();
+        }, 5000);
+    </script>
+</body>
+</html>

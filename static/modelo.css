@@ -1,0 +1,62 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 20px;
+}
+
+h1, h2, h3 {
+    color: #333;
+}
+
+a {
+    color: #007BFF;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Estilo para os links de navegação */
+h2 a {
+    display: block;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #007BFF;
+    color: #fff;
+    border-radius: 5px;
+}
+
+/* Estilo para os status */
+p {
+    margin-bottom: 20px;
+}
+
+span {
+    font-weight: bold;
+}
+
+/* Estilo para a seção Atuadores */
+#status-ar-condicionado {
+    color: #00F8FF; /* azul */
+}
+
+#status-sistema-incendio {
+    color: #dc3545; /* vermelho */
+}
+
+#status-lampada {
+    color: #ffc107; /* amarelo */
+}
+
+/* Estilo para a seção Sensores */
+#status-temperatura {
+    color: #00F8FF; /* azul */
+}
+
+#status-fumaca {
+    color: #dc3545; /* vermelho */
+}
+
+#status-luminosidade {
+    color: #ffc107; /* amarelo */
+}
