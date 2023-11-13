@@ -38,7 +38,7 @@ Este projeto implementa um sistema distribuído de ambiente inteligente, que inc
 
 ## Componentes do Sistema:
 
-O projeto é dividido em quatro partes principais:
+O projeto é dividido em cinco partes principais:
 
 - **Atuadores:**
   - O código dos Atuadores (`Atuadores.py`) implementa os serviços gRPC para os atuadores (ar-condicionado, sistema de controle de incêndio, lâmpadas).
