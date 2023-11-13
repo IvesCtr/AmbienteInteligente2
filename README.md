@@ -20,12 +20,12 @@ Este projeto implementa um sistema distribuído de ambiente inteligente, que inc
   - Um framework web leve para Python utilizado para criar o aplicativo web.
   - Utilizado para criar o aplicativo web e fornecer endpoints REST.
 
-- **HTML (Hypertext Markup Language):**
+- **HTML:**
   - Linguagem padrão para a criação e design de páginas web.
   - Utilizada para estruturar o conteúdo do aplicativo web.
 
-- **CSS (Cascading Style Sheets):**
-  - Linguagem que define valores estéticos para os elementos da página.
+- **CSS:**
+  - Linguagem que define valores estéticos para os elementos HTML.
   - Utilizada para a estilização do aplicativo web.
 
 - **JavaScript:**
