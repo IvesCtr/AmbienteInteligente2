@@ -20,6 +20,18 @@ Este projeto implementa um sistema distribuído de ambiente inteligente, que inc
   - Um framework web leve para Python utilizado para criar o aplicativo web.
   - Utilizado para criar o aplicativo web e fornecer endpoints REST.
 
+- **HTML (Hypertext Markup Language):**
+  - Linguagem padrão para a criação e design de páginas web.
+  - Utilizada para estruturar o conteúdo do aplicativo web.
+
+- **CSS (Cascading Style Sheets):**
+  - Linguagem que define valores estéticos para os elementos da página.
+  - Utilizada para a estilização do aplicativo web.
+
+- **JavaScript:**
+  - Linguagem que permite a manipulação dinâmica de elementos HTML.
+  - Utilizada para adicionar interatividade e dinamismo ao aplicativo web.
+
 - **RabbitMQ:**
   - Um sistema de mensagens de código aberto que atua como intermediário para comunicação assíncrona entre os serviços.
   - Utilizado para simular a geração de dados dos sensores.
