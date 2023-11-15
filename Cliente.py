@@ -9,6 +9,7 @@ class ClienteHomeAssistant:
         self.switch_ar = 0
         self.switch_incendio = 0
         self.switch_lampada = 0
+        self.monitor = 1
 
     def send_command(self, command):
         self.client_socket.send(command.encode('utf-8'))
@@ -29,10 +30,8 @@ class ClienteHomeAssistant:
         message = self.receive_data()
         self.handle_client_command(message)
 
-        if hasattr(self, 'temperatura_atual'):
-            print(f"\nTemperatura: {self.temperatura_atual: .1f}°C")
-        else:
-            print("\nTemperatura não disponível.")
+        if hasattr(self, 'temperatura_atual') and self.monitor == 1:
+            print(f"\nTemperatura atual captada pelo sensor: {self.temperatura_atual: .1f}°C")
 
     def ligar_sistema_controle_incendio(self):
         self.send_command("CONTROLE_INCENDIO_ON")
@@ -68,10 +67,16 @@ class ClienteHomeAssistant:
 
     def handle_client_command(self, command):
         # Processa o comando de atualização da temperatura
+        self.monitor = 1
         if command.startswith("TEMPERATURA_UPDATE"):
-            _, temperatura_str = command.split(" ")
-            temperatura = float(temperatura_str)
-            self.temperatura_atual = temperatura
+            parts = command.split(" ", 2)
+            if len(parts) == 2:
+                _, temperatura_str = parts
+                temperatura = float(temperatura_str)
+                self.temperatura_atual = temperatura
+            else:
+                self.monitor = 0
+                print("\nOcorreu um pequeno erro. Tente novamente.")
 
     def menu_ar_condicionado(self):
         while True:
@@ -184,10 +189,12 @@ class ClienteHomeAssistant:
                 print("\nOpção inválida. Tente novamente.")
 
     def start(self):
-        # Thread para leitura de temperatura
-        temperatura_thread = threading.Thread(target=self.receive_data, daemon=True)
-        temperatura_thread.start()
+
+        # Iniciando a thread para receber dados
+        receive_thread = threading.Thread(target=self.receive_data, daemon=True)
+        receive_thread.start()
 
 if __name__ == "__main__":
     cliente = ClienteHomeAssistant()
     cliente.executar()
+    cliente.start()
