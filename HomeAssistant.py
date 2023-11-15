@@ -93,6 +93,8 @@ class HomeAssistant:
         temperatura = float(body)
         print(f"Home Assistant: Recebida temperatura {temperatura:.1f} ªC")
 
+        self.client_conn.send(f"TEMPERATURA_UPDATE {temperatura}".encode('utf-8'))
+
         if self.sensor_controla_AR:
             status_ar_condicionado = self.ar_condicionado_stub.getStatus(smart_environment_pb2.Vazio())
 

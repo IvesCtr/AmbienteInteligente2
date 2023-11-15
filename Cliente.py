@@ -1,5 +1,6 @@
 import socket
 import time
+import threading
 
 class ClienteHomeAssistant:
     def __init__(self, host='localhost', port=6666):
@@ -8,6 +9,7 @@ class ClienteHomeAssistant:
         self.switch_ar = 0
         self.switch_incendio = 0
         self.switch_lampada = 0
+
     def send_command(self, command):
         self.client_socket.send(command.encode('utf-8'))
 
@@ -24,9 +26,13 @@ class ClienteHomeAssistant:
         self.send_command("CONTROLE_LAMPADA")
 
     def ler_temperatura(self):
-        self.send_command("TEMPERATURA_READ")
-        temperatura = float(self.receive_data())
-        print(f"\nTemperatura: {temperatura: .1f}°C")
+        message = self.receive_data()
+        self.handle_client_command(message)
+
+        if hasattr(self, 'temperatura_atual'):
+            print(f"\nTemperatura: {self.temperatura_atual: .1f}°C")
+        else:
+            print("\nTemperatura não disponível.")
 
     def ligar_sistema_controle_incendio(self):
         self.send_command("CONTROLE_INCENDIO_ON")
@@ -57,10 +63,15 @@ class ClienteHomeAssistant:
         print(f"\nLuminosidade: {luminosidade}")
 
     def receive_data(self):
-        # Aguarda um curto período para garantir que os dados foram processados pelo servidor
-        time.sleep(1)
         data = self.client_socket.recv(1024).decode('utf-8')
-        return data.strip()
+        return data
+
+    def handle_client_command(self, command):
+        # Processa o comando de atualização da temperatura
+        if command.startswith("TEMPERATURA_UPDATE"):
+            _, temperatura_str = command.split(" ")
+            temperatura = float(temperatura_str)
+            self.temperatura_atual = temperatura
 
     def menu_ar_condicionado(self):
         while True:
@@ -171,6 +182,11 @@ class ClienteHomeAssistant:
 
             else:
                 print("\nOpção inválida. Tente novamente.")
+
+    def start(self):
+        # Thread para leitura de temperatura
+        temperatura_thread = threading.Thread(target=self.receive_data, daemon=True)
+        temperatura_thread.start()
 
 if __name__ == "__main__":
     cliente = ClienteHomeAssistant()

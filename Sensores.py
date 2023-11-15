@@ -3,7 +3,6 @@ import time
 import threading
 import random
 
-
 class SensorTemperatura:
     def __init__(self, host='localhost'):
         self.temperatura = 27
