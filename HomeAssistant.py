@@ -79,6 +79,8 @@ class HomeAssistant:
         luminosidade = int(body)
         print(f"Home Assistant: Recebida luminosidade {luminosidade}")
 
+        self.client_conn.send(f"LUMINOSIDADE_UPDATE {luminosidade}".encode('utf-8'))
+
         if self.sensor_controla_LAMPADA:
             if luminosidade <= 30 and self.status_lampada is not True:
                 self.status_lampada = True
@@ -120,6 +122,9 @@ class HomeAssistant:
 
     def callback_fumaca(self, ch, method, properties, body):
         fumaca = int(body)
+
+        # self.client_conn.send(f"FUMACA_UPDATE {fumaca}".encode('utf-8'))
+
         if fumaca == 1:
             info = "VERDADEIRO"
         else:

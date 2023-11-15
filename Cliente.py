@@ -39,16 +39,12 @@ class ClienteHomeAssistant:
     def desligar_sistema_controle_incendio(self):
         self.send_command("CONTROLE_INCENDIO_OFF")
 
-    def ler_fumaca(self):
-        self.send_command("FUMACA_READ")
-        fumaca = self.receive_data()
-
-        if fumaca == "False":
-            fumaca = "Não"
-        else:
-            fumaca = "Sim"
-
-        print(f"\nDetecção de Fumaça: {fumaca}")
+    # def ler_fumaca(self):
+    #     message = self.receive_data()
+    #     self.handle_client_command(message)
+    #
+    #     if hasattr(self, 'fumaca_atual') and self.monitor == 1:
+    #         print(f"\nPresença de fumaça captada pelo sensor: {self.fumaca_atual}")
 
     def ligar_lampada(self):
         self.send_command("LAMPADA_ON")
@@ -57,9 +53,11 @@ class ClienteHomeAssistant:
         self.send_command("LAMPADA_OFF")
 
     def ler_luminosidade(self):
-        self.send_command("LUMINOSIDADE_READ")
-        luminosidade = self.receive_data()
-        print(f"\nLuminosidade: {luminosidade}")
+        message = self.receive_data()
+        self.handle_client_command(message)
+
+        if hasattr(self, 'luminosidade_atual') and self.monitor == 1:
+            print(f"\nLuminosidade atual captada pelo sensor: {self.luminosidade_atual}")
 
     def receive_data(self):
         data = self.client_socket.recv(1024).decode('utf-8')
@@ -77,6 +75,26 @@ class ClienteHomeAssistant:
             else:
                 self.monitor = 0
                 print("\nOcorreu um pequeno erro. Tente novamente.")
+
+        if command.startswith("LUMINOSIDADE_UPDATE"):
+            parts = command.split(" ", 2)
+            if len(parts) == 2:
+                _, luminosidade_str = parts
+                luminosidade = int(luminosidade_str)
+                self.luminosidade_atual = luminosidade
+            else:
+                self.monitor = 0
+                print("\nOcorreu um pequeno erro. Tente novamente.")
+
+        # if command.startswith("FUMACA_UPDATE"):
+        #     parts = command.split(" ", 2)
+        #     if len(parts) == 2:
+        #         _, fumaca_conv = parts
+        #         fumaca = int(fumaca_conv)
+        #         self.fumaca_atual = fumaca
+        #     else:
+        #         self.monitor = 0
+        #         print("\nOcorreu um pequeno erro. Tente novamente.")
 
     def menu_ar_condicionado(self):
         while True:
@@ -114,7 +132,7 @@ class ClienteHomeAssistant:
             print("\nMenu Sistema de Controle de Incêndio:")
             print("1. Ligar")
             print("2. Desligar")
-            print("3. Status do Sistema De Incêncio")
+            # print("3. Status do Sistema De Incêncio")
             print("0. Voltar")
 
             escolha_controle_incendio = input("Escolha uma opção: ")
@@ -124,8 +142,8 @@ class ClienteHomeAssistant:
             elif escolha_controle_incendio == '2':
                 self.desligar_sistema_controle_incendio()
                 print("\nSistema de Controle de Incêndio DESLIGADO")
-            elif escolha_controle_incendio == '3':
-                self.ler_fumaca()
+            # elif escolha_controle_incendio == '3':
+            #     self.ler_fumaca()
             elif escolha_controle_incendio == '0':
                 break
             else:
